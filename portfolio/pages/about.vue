@@ -4,7 +4,7 @@
 	</div>
 </template>
 <script setup lang="ts">
-  definePageMeta({
-    layout: "another"
+  useHead({
+    title: 'About'
   })
 </script>
