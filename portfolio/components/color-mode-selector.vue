@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup type="ts">
 const showNextModelLabel = ref(false)
 const colorMode = useColorMode()
 
@@ -27,7 +27,7 @@ const nextModeIcons = {
 const nextMode = computed(() => {
   const currentModeIndex = modes.indexOf(colorMode.preference)
 
-  let nextModeIndex = null
+  let nextModeIndex
   if (currentModeIndex + 1 === modes.length) {
     nextModeIndex = 0
   } else {

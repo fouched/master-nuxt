@@ -10,22 +10,31 @@
             <div class="font-semibold">{{ repository.name }}</div>
             <div>{{ repository.stargazers_count }} ★</div>
           </div>
-          <p>{{ repository.description}}</p>
+          <p>{{ repository.description }}</p>
          </a>
       </li>
     </ul>
   </section>
 </template>
 
-<script setup>
-const {pending, error, data} = await useFetch('https://api.github.com/users/fouched/repos')
+<script setup lang="ts">
+type Repo = {
+  id: number
+  name: string
+  html_url: string
+  description: string
+  stargazers_count: number
+}
+const {pending, error, data} = await useFetch<Repo[], Error>(
+    'https://api.github.com/users/fouched/repos')
 
 // computed: changes whenever data changes
 // filter: Returns the elements of an array that meet the condition
 // specified in a callback function. In this case repos with a description
 // the data is also sorted in descending order
 const repos = computed(
-    () => data.value.filter(repo => repo.description)
-        .sort((a, b) => b.stargazers_count - a.stargazers_count)
-)
+    () => data.value
+        ?.filter((repo: Repo) => repo.description)
+        .sort((a: Repo, b: Repo) => b.stargazers_count - a.stargazers_count)
+);
 </script>
