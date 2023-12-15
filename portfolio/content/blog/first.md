@@ -1,5 +1,6 @@
 ---
 publishedAt: 2023-01-02
+toc: true
 title: 'The Awesome First Post'
 description: 'The awesome first post on our website'
 head:

@@ -1,5 +1,6 @@
 ---
 publishedAt: 2023-02-02
+toc: true
 description: A beginner's guide to getting started with Vue 3.
 image: /images/vue-logo.png
 head:
