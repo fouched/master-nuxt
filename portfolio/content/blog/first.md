@@ -1,4 +1,5 @@
 ---
+publishedAt: 2023-01-02
 title: 'The Awesome First Post'
 description: 'The awesome first post on our website'
 head:

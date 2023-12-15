@@ -1,5 +1,5 @@
 <template>
-  <p class="mb-10">Project List</p>
+  <div class="not-prose">
   <section v-if="pending">Loading...</section>
   <section v-else-if="error">Something went wrong, try again...</section>
   <section v-else>
@@ -15,6 +15,7 @@
       </li>
     </ul>
   </section>
+  </div>
 </template>
 
 <script setup lang="ts">
