@@ -10,9 +10,9 @@ export default defineNuxtConfig({
 	app: {
 		pageTransition: {
 			name: 'page',
-			mode: 'out-in'
-		}
-	},	
+			mode: 'out-in',
+		},
+	},
 	modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode', '@nuxt/content'],
 	content: {
 		highlight: {
@@ -27,7 +27,12 @@ export default defineNuxtConfig({
 	},
 	router: {
 		options: {
-			scrollBehaviorType: 'smooth'
+			scrollBehaviorType: 'smooth',
+		},
+	},
+	nitro: {
+		prerender: {
+			routes: ['/sitemap.xml'],
 		},
 	},
 })

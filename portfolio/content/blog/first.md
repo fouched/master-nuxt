@@ -13,8 +13,8 @@ head:
       content: 'NuxtLabs'
     - name: 'copyright'
       content: '© 2022 NuxtLabs'
-		
 ---
+
 # First post on our website
 
 ## Introduction
@@ -52,5 +52,3 @@ Tables:
 	<div>Hello!</div>
 </html>
 ```
-
-[Go to the second article](/blog/second)
