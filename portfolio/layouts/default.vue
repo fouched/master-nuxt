@@ -3,7 +3,7 @@
     <header class="flex justify-between items-center mt-5">
       <div class="flex item-center space-x-12">
         <div>
-          <NuxtLink to="/" class="text-xl font-semibold p-2">Fouche du Preez</NuxtLink>
+          <NuxtLink to="/" class="text-xl font-semibold p-2 hover:bg-gray-300 hover:dark:bg-gray-700">Fouche du Preez</NuxtLink>
         </div>
         <Menu />
       </div>
@@ -42,8 +42,5 @@ useHead({
     @apply bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300
   }
 
-  a, li {
-    @apply hover:bg-gray-300 hover:dark:bg-gray-700
-  }
 </style>
 

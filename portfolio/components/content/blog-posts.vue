@@ -1,30 +1,46 @@
 <template>
-	<section class="not-prose font-mono">
-		<div class="column text-gray-400 text-sm">
-			<div>date</div>
-			<div>title</div>
-		</div>
-		<ul>
-			<li v-for="post in posts" :key="post._path">
-				<NuxtLink :to="post._path" class="column">
-					<div :class="{'text-white dark:text-gray-900': !post.displayYear, 'text-gray-400 dark:text-gray-500': post.displayYear}">
-						{{ post.year }}
-					</div>
-					<div>{{ post.title }}</div>
-				</NuxtLink>
-			</li>
-		</ul>
-	</section>
+	<slot :posts="posts">
+		<section class="not-prose font-mono">
+			<div class="column text-gray-400 text-sm">
+				<div>date</div>
+				<div>title</div>
+			</div>
+			<ul>
+				<li v-for="post in posts" :key="post._path">
+					<NuxtLink :to="post._path" class="column group hover:bg-gray-300 hover:dark:bg-gray-700">
+						<div :class="{'text-white group-hover:text-gray-300 dark:text-gray-900 group-hover:dark:text-gray-700': !post.displayYear, 'text-gray-400 dark:text-gray-500': post.displayYear}">
+							{{ post.year }}
+						</div>
+						<div>{{ post.title }}</div>
+					</NuxtLink>
+				</li>
+			</ul>
+		</section>
+	</slot>
 </template>
 <script setup>
+const props = defineProps({
+	limit: {
+		type: Number,
+		default: null
+	}
+})
+
 // to prevent fetch duplication (front & backend) on first load
 // wrap query in useAsyncData composable
 const { data } = await useAsyncData('blog-list', () =>
-	queryContent('/blog')
-		.where({ _path: { $ne: '/blog' } })
-		.only(['_path', 'title', 'publishedAt'])
-		.sort({ publishedAt: -1 })
-		.find()
+	{
+		const query = queryContent('/blog')
+			.where({ _path: { $ne: '/blog' } })
+			.only(['_path', 'title', 'publishedAt'])
+			.sort({ publishedAt: -1 })
+			
+		if (props.limit) {
+			query.limit(props.limit)
+		}
+
+		return query.find()
+	}
 )
 
 const posts = computed(() => {

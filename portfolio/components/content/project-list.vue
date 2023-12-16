@@ -4,7 +4,8 @@
   <section v-else-if="error">Something went wrong, try again...</section>
   <section v-else>
     <ul class="grid grid-cols-1 gap-4">
-      <li v-for="repository in repos" :key="repository.id" class="border border-gray-200 rounded-sm p-4 hover:bg-gray-200 font-mono">
+      <li v-for="repository in repos" :key="repository.id" 
+      class="border border-gray-300 dark:border-gray-700 rounded-sm p-4 hover:bg-gray-200 hover:dark:bg-gray-700 font-mono">
         <a :href="repository.html_url" target="_blank">
           <div class="flex items-center justify-between">
             <div class="font-semibold">{{ repository.name }}</div>
