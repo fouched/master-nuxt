@@ -58,7 +58,6 @@ onMounted(() => {
 
 	// clean up
 	onBeforeUnmount(() => {
-		console.log('onBeforeUnmount')
 		for (const element of elements) {
 			observer.unobserve(element)
 		}
