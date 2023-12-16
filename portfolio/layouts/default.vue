@@ -1,8 +1,8 @@
 <template>
   <div class="container mx-auto max-w-4xl">
-    <header class="flex justify-between items-center mt-5">
-      <div class="flex item-center space-x-12">
-        <div>
+    <header class="flex justify-between items-start md:items-center mt-5">
+      <div class="flex item-center md:space-x-12">
+        <div class="hidden md:block">
           <NuxtLink to="/" class="text-xl font-semibold p-2 hover:bg-gray-300 hover:dark:bg-gray-700">Fouche du Preez</NuxtLink>
         </div>
         <Menu />
