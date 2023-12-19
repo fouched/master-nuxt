@@ -20,10 +20,9 @@
 
 <script setup>
 import { transactionViewOptions } from '~/constants';
+
 const selectedView = ref(transactionViewOptions[1])
-
 const supabase = useSupabaseClient()
-
 const transactions = ref([])
 
 const {data, pending} = await useAsyncData('transactions', async () => {
