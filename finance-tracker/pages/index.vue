@@ -14,7 +14,10 @@
     <Trend color="red" title="Investments" :amount="4000" :lastAmount="4100" :loading="false" />
   </section>
   <section>
-    <Transaction v-for="transaction in transactions" :key="transaction.id" :transaction="transaction"/>
+    <div v-for="(transactionOnDay, date) in transactionsGroupedByDate" :key="date" class="mb-10">
+      <DailyTransactionSummary :date="date" :transactions="transactionOnDay"/>
+      <Transaction v-for="transaction in transactionOnDay" :key="transaction.id" :transaction="transaction"/>
+    </div>    
   </section>
 </template>
 
@@ -36,6 +39,23 @@ const {data, pending} = await useAsyncData('transactions', async () => {
 })
 
 transactions.value = data.value
+
+const transactionsGroupedByDate = computed(() => {
+  let grouped = {}
+
+  for (const transaction of transactions.value) {
+    const date = new Date(transaction.created_at).toISOString().split('T')[0]
+
+    if (!grouped[date]) {
+      grouped[date] = []
+    }
+
+    grouped[date].push(transaction)
+  }
+
+  return grouped
+  
+})
 
 </script>
 
