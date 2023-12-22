@@ -5,7 +5,7 @@
           Add Transaction
         </template>
 
-        <UForm :state="state" :schema="schema" @submit.prevent="save">
+        <UForm :state="state" :schema="schema" ref="form" @submit="save">
           <UFormGroup label="Transaction Type" :required="true" name="type" class="mb-4">
             <USelect placeholder="Select a Transaction Type" :options="transactionType" v-model="state.type"/>
           </UFormGroup>        
@@ -26,7 +26,7 @@
             <USelect placeholder="Select a Category" :options="transactionCategories" v-model="state.category" />
           </UFormGroup>
 
-          <UButton type="submit" color="black" variant="solid" label="Save"/>          
+          <UButton type="submit" color="black" variant="solid" label="Save" :loading="isLoading"/>          
         </UForm>
       </UCard>
     </UModal> 
@@ -72,11 +72,40 @@ const schema = z.intersection(
   defaultSchema
 )
 
+const form = ref()
+const isLoading = ref(false)
+const supabase = useSupabaseClient()
+const toast = useToast()
 
 const save = async() => {
   if (form.value.errors.length) return
   
-  // store the data
+  isLoading.value = true
+  try {
+    const {error} = await supabase.from('transactions')
+      .upsert({...state.value})
+
+    if (!error) {
+      toast.add({
+        title: 'Transaction saved',
+        icon: 'i-heroicon-check-circle'
+      })
+
+      isOpen.value = false
+      emit('saved')
+    } else {
+      throw error
+    }  
+  } catch(e) {
+    toast.add({
+      title: 'Transaction not saved',
+      description: 'Please try again later',
+      icon: 'i-heroicons-exclamation-circle',
+      color: 'red'
+    })
+  } finally {
+    isLoading.value = false
+  }
 }
 
 const initialState = {
@@ -95,7 +124,7 @@ const resetForm = () => {
   Object.assign(state.value, initialState)
 }
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'saved'])
 
 const isOpen = computed({
 	get: () => props.modelValue,
