@@ -3,10 +3,8 @@
 		<div class="font-bold" :class="[color]">{{ title }}</div>
 
 		<div class="text-2xl font-extrabold text-black dark:text-white mb-2">
-      <ClientOnly>
 			  <USkeleton class="h-8 w-full" v-if="loading" />
-				  <div v-else>{{ currency }}</div>
-			</ClientOnly>
+				<div v-else>{{ currency }}</div>
 		</div>
 
 		<div>
@@ -33,6 +31,10 @@ const props = defineProps({
 	color: String,
 	loading: Boolean,
 })
+// make amount reactive so that 
+// it changes when period are changed
+const { amount } = toRefs(props)
+const { currency } = useCurrency(amount)
 
 const trendingUp = computed(() => props.amount > props.lastAmount)
 
@@ -42,7 +44,7 @@ const icon = computed(() =>
 		: 'i-heroicons-arrow-trending-down'
 )
 
-const { currency } = useCurrency(props.amount)
+
 
 const percentageTrend = computed(() => {
 	if (props.amount === 0 || props.lastAmount === 0) return '∞%'

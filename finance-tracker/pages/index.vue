@@ -9,9 +9,9 @@
   </section>
 
   <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 sm:gap-16 mb-10">
-    <Trend color="green" title="Income" :amount="incomeTotal" :lastAmount="3000" :loading="pending"/>
-    <Trend color="red" title="Expenses" :amount="expenseTotal" :lastAmount="5000" :loading="pending" />
-    <Trend color="green" title="Savings" :amount="4000" :lastAmount="3000" :loading="pending" />
+    <Trend color="green" title="Income" :amount="incomeTotal" :lastAmount="prevIncomeTotal" :loading="pending"/>
+    <Trend color="red" title="Expenses" :amount="expenseTotal" :lastAmount="preExpenseTotal" :loading="pending" />
+    <Trend color="green" title="Savings" :amount="200" :lastAmount="3000" :loading="pending" />
     <Trend color="red" title="Investments" :amount="4000" :lastAmount="4100" :loading="pending" />
   </section>
 
@@ -30,9 +30,9 @@
 
   <section v-if="!pending">
     <div v-for="(transactionOnDay, date) in byDate" :key="date" class="mb-10">
-      <DailyTransactionSummary :date="date" :transactions="transactionOnDay"/>
-      <Transaction v-for="transaction in transactionOnDay" :key="transaction.id" 
-        :transaction="transaction" @deleted="refresh()"/>
+        <DailyTransactionSummary :date="date" :transactions="transactionOnDay"/>
+        <Transaction v-for="transaction in transactionOnDay" :key="transaction.id" 
+          :transaction="transaction" @deleted="refresh()"/>
     </div>    
   </section>
 
@@ -46,6 +46,7 @@ import { transactionViewOptions } from '~/constants';
 
 const selectedView = ref(transactionViewOptions[1])
 const isOpen = ref(false)
+const {current, previous} = useSelectedTimePeriod(selectedView)
 
 const {pending, refresh, transactions: {
   incomeCount,
@@ -55,9 +56,14 @@ const {pending, refresh, transactions: {
   grouped: {
     byDate
   }
-}} = useFetchTransactions()
-
+}} = useFetchTransactions(current)
 await refresh()
+
+const {refresh: refreshPrevious, transactions: {
+  incomeTotal: prevIncomeTotal,
+  expenseTotal: preExpenseTotal,
+}} = useFetchTransactions(previous)
+await refreshPrevious()
 
 </script>
 
