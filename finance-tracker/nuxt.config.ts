@@ -6,6 +6,6 @@ export default defineNuxtConfig({
     '@nuxtjs/supabase'
   ],
   supabase: {
-    redirect: false
+    redirect: true
   }
 })
