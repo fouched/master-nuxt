@@ -1,5 +1,5 @@
 <template>
-	<UForm :state="state" :schema="schema">
+	<UForm :state="state" :schema="schema" @submit="saveProfile">
 		<UFormGroup class="mb-4" label="Full Name" name="name">
 			<UInput v-model="state.name" />
 		</UFormGroup>
@@ -8,7 +8,7 @@
 
 			<UInput v-model="state.email" />
 		</UFormGroup>
-		<UButton type="submit" color="black" variant="solid" label="Save" :pending="pending"/>
+		<UButton type="submit" color="black" variant="solid" label="Save" :loading="pending" :disabled="pending"/>
 	</UForm>
 </template>
 
@@ -22,7 +22,7 @@ const pending = ref(false)
 
 // state
 const state = ref({
-	name: '',
+	name: user.value.user_metadata?.full_name,
 	email: user.value.email
 })
 // validation
@@ -31,4 +31,40 @@ const schema = z.object({
 	email: z.string().email()
 })
 
+
+const saveProfile = async () => {
+	pending.value = true
+
+	const data = {
+		data: {
+			full_name: state.value.name
+		}
+	}
+
+	// only add to payload if email changed
+	if (state.value.email !== user.value.email) {
+		data.email = state.value.email
+	}
+
+	console.log(data)
+
+	try {
+		const {error} = await supabase.auth.updateUser(data)
+		// Supa base does not throw errors automatically
+		if (error) throw error
+
+		toastSuccess({
+			title: 'Profile updated',
+			description: 'Your profile has been updated successfully'
+		})
+
+	} catch (error) {
+		toastError({
+			title: 'Error updating profile',
+			description: 'Please try again later'
+		})
+	} finally {
+		pending.value = false
+	}
+}
 </script>
