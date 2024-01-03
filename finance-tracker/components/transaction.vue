@@ -30,7 +30,7 @@ const props = defineProps({
 const emit = defineEmits(['deleted', 'edited'])
 
 const isIncome = computed(
-    () => props.transaction.type === 'Income'
+    () => props.transaction.type === 'Income' || props.transaction.type === 'Saving'
 )
 
 const icon = computed(
