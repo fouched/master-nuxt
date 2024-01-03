@@ -11,8 +11,10 @@
   <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 sm:gap-16 mb-10">
     <Trend color="green" title="Income" :amount="incomeTotal" :lastAmount="prevIncomeTotal" :loading="pending"/>
     <Trend color="red" title="Expenses" :amount="expenseTotal" :lastAmount="preExpenseTotal" :loading="pending" />
+    <!--
     <Trend color="green" title="Savings" :amount="200" :lastAmount="3000" :loading="pending" />
     <Trend color="red" title="Investments" :amount="4000" :lastAmount="4100" :loading="pending" />
+    -->
   </section>
 
   <section class="flex justify-between mb-10">
