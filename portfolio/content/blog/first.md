@@ -31,16 +31,27 @@ Unordered lists:npm install -D @tailwindcss/typography
 
 - Do the work
 - Collect benefits
+- Do some more work
+- Collect more benefits
 
 Numbered lists:
 
 1.  Pay taxes
 2.  Die
+3.  Revive
+4.  Realize you are human again - shit!
+5.  Pay taxes
+6.  Die
+7.  Revive
+8.  Finally, I am whale!
 
 Todo list:
 
 - [ ] Buy groceries
 - [ ] Pay bills
+- [ ] School run
+- [ ] Do that work thing
+- [ ] Chillax
 
 Tables:
 | Name | Surname |
