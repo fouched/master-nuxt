@@ -25,9 +25,7 @@ This is some text. _This is italic_.
 
 Something more. **This is bold**.
 
-### Also try lists
-
-Unordered lists:npm install -D @tailwindcss/typography
+Unordered lists
 
 - Do the work
 - Collect benefits
@@ -45,6 +43,8 @@ Numbered lists:
 7.  Revive
 8.  Finally, I am whale!
 
+### Try some more lists
+
 Todo list:
 
 - [ ] Grog something
@@ -55,10 +55,21 @@ Todo list:
 - [ ] Do that work thing
 - [ ] Chillax
 
-Tables:
+### Do some tables
+
 | Name | Surname |
 |--|--|
 | Fouche | du Preez |
+| Fouche | du Preez |
+| Fouche | du Preez |
+| Fouche | du Preez |
+| Fouche | du Preez |
+| Fouche | du Preez |
+| Fouche | du Preez |
+| Fouche | du Preez |
+| Fouche | du Preez |
+
+### Show some code
 
 ```html
 <html>
