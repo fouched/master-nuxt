@@ -47,9 +47,11 @@ Numbered lists:
 
 Todo list:
 
+- [ ] Grog something
 - [ ] Buy groceries
 - [ ] Pay bills
 - [ ] School run
+- [ ] Chillax
 - [ ] Do that work thing
 - [ ] Chillax
 
